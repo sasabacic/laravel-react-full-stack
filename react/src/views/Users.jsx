@@ -53,20 +53,18 @@ const Users = () => {
                         </tr>
                     </thead>
 
-                    {loading &&
+                    {loading ?
                     <tbody>
                         <tr>
                             <td colSpan="5" className="text-center">
                                 Loading...
                             </td>
                         </tr>
-                    </tbody>
-                    }
-                    {!loading &&
+                    </tbody> :
                     <tbody>
                         {users.map((user) => (
                             // eslint-disable-next-line react/jsx-key
-                            <tr>
+                            <tr key={user.id}>
                                 <td>{user.id}</td>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>

@@ -17,6 +17,7 @@ class SignupRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     * Signup request are custom request classes that handle validation logic
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */

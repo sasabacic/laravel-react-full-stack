@@ -15,8 +15,12 @@ class UserController extends Controller
      */
     public function index()
     {
+        /**
+         * we need to call UserResource collection method and pass this user, the result
+         * of the pagination and return it
+         */
         return UserResource::collection(
-            User::query()->orderBy('id','desc')->paginate(10)
+            User::query()->orderBy('id', 'desc')->paginate(10)
         );
     }
 
@@ -25,10 +29,23 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $data = $request->validated();
-        $data['password'] = bcrypt($data['password']);
-        $user = User::create($data);
+        /**
+         * $request->validated() returns an array containing the fields that passed the validation
+         * In the SignupRequest it includes name,email,password
+         */
 
+        $data = $request->validated();
+        /**
+         * User::create is used to insert a new user record into the database
+         * It expects an associative array where the keys correspond to the column
+         * names in the database table and the values are the data you want to insert
+         *
+         * */
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password'])
+        ]);
 
         return new UserResource($user);
     }
@@ -46,12 +63,11 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $data = $request->validated();
-        //we need to check if inside the data there is password available then we encypt the password
+        $data = $request->validate();
         if(isset($data['password'])){
             $data['password'] = bcrypt($data['password']);
         }
-        //on the user we called update passing the data
+
         $user->update($data);
 
         return new UserResource($user);
@@ -64,6 +80,6 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return response('',204);
+        return response('', 204);
     }
 }

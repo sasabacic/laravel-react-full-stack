@@ -8,17 +8,18 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class UserResource extends JsonResource
 {
     /**
-     * Resource is a class which is used to convert database models to JSON data which will be sent
-     * from the server to the browser
      * Transform the resource into an array.
+     * Resource is a class which is used to convert database models into json serializable
+     * data which will be sent from the server from the api to the browser or to client
      *
      * @return array<string, mixed>
      */
     public function toArray(Request $request): array
     {
+        /**
+         * we need to return an array of our data what we want to expose from the user
+         */
         return [
-            //we need to return an aray of data what do we want to exposed from the user
-            //we are getting the attributes of the user model with $this
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,

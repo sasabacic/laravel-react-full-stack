@@ -15,7 +15,7 @@ class AuthController extends Controller
 
     public function signup(SignupRequest $request)
     {
-        //Validate the incoming request and then creating the user
+        //SignupRequests is responsible for validating the incoming request and then creating the user
         $data = $request->validated();
         $user = User::create([
             'name' => $data['name'],
@@ -31,11 +31,11 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $auth = $request->validated();
-        //I want to try to login with my credentials
-        if (!Auth::attempt($auth)) {
+        $credentials = $request->validated();
+        //I want to try to login with my credentials and if that fails
+        if(!Auth::attempt($credentials)){
             return response([
-                'message' => 'Incorrect email address or password'
+                'message' => 'Email address or password is incorect'
             ]);
         }
         //If the attempt is successfull and the user is created I want to get user information
