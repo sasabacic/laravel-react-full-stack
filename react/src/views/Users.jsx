@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axiosClient from "../axios-client";
-import { useStateContext } from "../contexts/ContextProvider";
-
-
 
 const Users = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
-    const {setNotification} = useStateContext();
     const [pagination, setPagination] = useState({
         current_page: 1,
         last_page: 1,
@@ -32,7 +28,6 @@ const Users = () => {
 
         axiosClient.delete(`/users/${user.id}`)
         .then(() => {
-            setNotification('User was successfully deleted');
             getUsers();
         })
     }
@@ -46,10 +41,10 @@ const Users = () => {
             setPagination({
                 current_page: data.meta.current_page,
                 last_page: data.meta.last_page,
-                from: data.meta.from,
-                to: data.meta.to,
-                next_page_url: data.links.next,
-                prev_page_url: data.links.prev
+                    from: data.meta.from,
+                    to: data.meta.to,
+                    next_page_url: data.links.next,
+                    prev_page_url: data.links.prev
             });
         })
         .catch(() => {

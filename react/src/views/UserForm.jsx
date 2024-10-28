@@ -37,7 +37,7 @@ const UserForm = () => {
         if(user.id){
             axiosClient.put(`/users/${user.id}`, user)
             .then(() => {
-                setNotification('User was successfully updated')
+                setNotification('User was successfuly updated')
                 navigate('/users')
             })
             .catch((error) => {
@@ -78,7 +78,7 @@ const UserForm = () => {
                         {!loading &&
                         <form onSubmit={onSubmit}>
                             <input value={user.name} onChange={e => setUser({...user, name:e.target.value})} placeholder='Name' />
-                            <input value={user.email} type="email" onChange={e => setUser({...user, email:e.target.value})} placeholder='Email' />
+                            <input type="email" value={user.email} onChange={e => setUser({...user, email:e.target.value})} placeholder='Email' />
                             <input type="password" onChange={e => setUser({...user, password:e.target.value})} placeholder='Password' />
                             <input type="password" onChange={e => setUser({...user, password_confirmation: e.target.value})} placeholder='Password Confirmation' />
                             <button className='btn'>Save</button>
