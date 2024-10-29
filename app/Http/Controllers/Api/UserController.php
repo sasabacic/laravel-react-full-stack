@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
@@ -13,15 +14,31 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        //Getting the search term from the request
+        $search = $request->input('search');
+
+        //Building query
+        $query = User::query();
+
+        if($search){
+            $query->where(function ($query) use ($search) {
+                $query->where('name','LIKE', "%{$search}%")
+                ->orWhere('email', 'LIKE',"%{$search}%");
+            });
+        }
+
+        //Order by id and paginate
+        $users = $query->orderBy('id', 'desc')->paginate(10);
+
+
         /**
          * we need to call UserResource collection method and pass this user, the result
          * of the pagination and return it
          */
-        return UserResource::collection(
-            User::query()->orderBy('id', 'desc')->paginate(10)
-        );
+        return UserResource::collection($users);
     }
 
     /**
