@@ -9,6 +9,7 @@
     justify-content: space-between;
     align-items: center;
 
+
 }
 
 
@@ -17,8 +18,10 @@ html, body, #root, #defaultLayout, #guestLayout {
 }
 
 h1, h2, h3, h4, h5, h6, p {
-    margin: 0;
+    margin: 1;
 }
+
+
 
 body {
     font-family: 'Open Sans', sans-serif;
@@ -28,6 +31,7 @@ body {
     color: #212121;
     background-color: #f6f6f6;
 }
+
 
 input {
     outline: 0;
@@ -39,6 +43,7 @@ input {
     box-sizing: border-box;
     font-size: 14px;
     transition: all 0.3s;
+
 }
 
 input:focus {
@@ -60,6 +65,7 @@ input:focus {
     -webkit-transition: all 0.3 ease;
     transition: all 0.3 ease;
     cursor: pointer;
+    margin-right: 4px;
 }
 
 .btn-block {
@@ -72,6 +78,7 @@ input:focus {
     padding: 0.5rem 0.75rem;
     font-size: 14px;
     border-radius: 4px;
+
 }
 .btn-add {
     background-color: #00a762;

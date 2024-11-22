@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
+
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -17,6 +18,16 @@ const Users = () => {
         next_page_url: null,
         prev_page_url: null,
     });
+
+    const navigate = useNavigate();
+
+    const logout = () => {
+        localStorage.removeItem('token');
+
+        delete axiosClient.defaults.headers.common['Authorization'];
+
+        navigate('/login');
+    }
 
     //We are using useEffect to fetch the users and state changes when we delete or fetch the user
     //Whenever the state change it rerender the UI to show the latest data
@@ -70,9 +81,9 @@ const Users = () => {
 
     // Handling search input change
     const handleSearchChange = (e) => {
-        setSearch(e.target.value)
-        setPagination((prev) => ({...prev, current_page: 1}))
-    }
+        setSearch(e.target.value);
+        setPagination((prev) => ({ ...prev, current_page: 1 }));
+    };
 
     return (
         <div>
@@ -81,9 +92,22 @@ const Users = () => {
                 <Link to="/users/new" className="btn-add">
                     Create new User
                 </Link>
+                {/* Add buttons for TrainingForm and TrainingsList */}
+                <Link to="/trainings/new" className="btn-add">
+                Create new training
+                </Link>
+                <Link to="/trainings" className="btn-add">
+                View Trainings list
+                </Link>
+
             </div>
             <div className="card animated fadeInDown">
-                <input type="text" placeholder="Search Users" value={search} onChange={handleSearchChange}/>
+                <input
+                    type="text"
+                    placeholder="Search Users"
+                    value={search}
+                    onChange={handleSearchChange}
+                />
                 <table>
                     <thead>
                         <tr>
@@ -106,7 +130,6 @@ const Users = () => {
                     ) : (
                         <tbody>
                             {users.map((user) => (
-
                                 <tr key={user.id}>
                                     <td>{user.id}</td>
                                     <td>{user.name}</td>
