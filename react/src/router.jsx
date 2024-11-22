@@ -7,6 +7,8 @@ import DefaultLayout from "./components/DefaultLayout";
 import GuestLayout from "./components/GuestLayout";
 import Dashboard from "./views/Dashboard";
 import UserForm from "./views/UserForm";
+import TrainingForm from "./views/TrainingForm";
+import TrainingsList from "./views/TrainingsList";
 
 const router = createBrowserRouter([
 
@@ -33,6 +35,23 @@ const router = createBrowserRouter([
                 path: '/users/new',
                 element: <UserForm key="createUser" />
             },
+
+            {
+                path: '/trainings/new',
+                element: <TrainingForm key="createTraining" />
+            },
+
+            {
+                path: '/edit-training/:id',
+                element: <TrainingForm key="editTraining" />
+            },
+
+            {
+                path: '/trainings/',
+                element: <TrainingsList key="listTraining" />
+            },
+
+
 
             {
                 path: '/users/:id',

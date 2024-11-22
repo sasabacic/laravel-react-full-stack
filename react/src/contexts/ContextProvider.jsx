@@ -29,8 +29,8 @@ const StateContext = createContext({
         _setNotification(message);
         setTimeout(() => {
             _setNotification('')
-        }, 5000)
-    }
+        }, 5000);
+    };
 
 
 
