@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate} from "react-router-dom";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
+import Spinner from "./Spinner";
 
 
 const Users = () => {
@@ -120,13 +121,7 @@ const Users = () => {
                     </thead>
 
                     {loading ? (
-                        <tbody>
-                            <tr>
-                                <td colSpan="5" className="text-center">
-                                    Loading...
-                                </td>
-                            </tr>
-                        </tbody>
+                        <Spinner loading={loading} />
                     ) : (
                         <tbody>
                             {users.map((user) => (
