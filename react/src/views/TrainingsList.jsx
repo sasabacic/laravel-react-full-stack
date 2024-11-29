@@ -79,8 +79,8 @@ const TrainingsList = () => {
                                 <h3>{training.activity_type.toUpperCase()}</h3>
                                 <p>Date: {formatDate(training.training_date)}</p>
                                 <p>Pace: {training.pace}</p>
-                                <p>Distance: {training.distance}</p>
-                                <p>Duration: {training.duration}</p>
+                                <p>Distance: {training.distance} km</p>
+                                <p>Duration: {training.duration} minutes</p>
                                 <p>Notes: {training.notes}</p>
                                 <button
                                     onClick={() => deleteTraining(training.id)}
