@@ -44,6 +44,11 @@ const TrainingsList = () => {
         navigate(`/edit-training/${training.id}`, { state: training });
     };
 
+    const formatDate = (date) => {
+        return new Date(date).toLocaleDateString()
+
+    }
+
     const filteredTrainings = filter
     ? trainings.filter((training) => training.activity_type === filter)
     : trainings; // Apply filter
@@ -72,6 +77,7 @@ const TrainingsList = () => {
                         filteredTrainings.map((training) => (
                             <div key={training.id}>
                                 <h3>{training.activity_type.toUpperCase()}</h3>
+                                <p>Date: {formatDate(training.training_date)}</p>
                                 <p>Pace: {training.pace}</p>
                                 <p>Distance: {training.distance}</p>
                                 <p>Duration: {training.duration}</p>
