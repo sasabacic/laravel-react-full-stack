@@ -24,7 +24,7 @@ class StoreTrainingRequest extends FormRequest
         return [
             'activity_type' => 'required|string|in:swim,bike,run',
             'pace' => 'required|string|min:0|max:99.99',
-            'distance' => 'required|numeric|min:0|max:200',
+            'distance' => 'required|numeric|min:0|max:86400',
             'duration' => 'required|integer|min:0|max:86400',
             'training_date' => 'nullable|date',
             'notes' => 'nullable|string|max:500',
