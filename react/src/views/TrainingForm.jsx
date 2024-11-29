@@ -11,6 +11,7 @@ const TrainingForm = () => {
     const {setNotification} = useStateContext();
 
     const [form, setForm] = useState({
+        training_date: '',
         activity_type: '',
         pace: '',
         distance: '',
@@ -62,8 +63,18 @@ const TrainingForm = () => {
     <div>
         <form onSubmit={handleSubmit}>
             <div>
+                <label htmlFor="training_date">Training Date</label>
+                <input type="date"
+                id="training_date"
+                name="training_date"
+                value={form.training_date}
+                onChange={handleChange}
+                required />
+            </div>
+
+            <div>
                 <label htmlFor="activity_type">Activity type</label>
-                <br /> 
+                <br />
                 <select
                 id="activity_type"
                 name="activity_type"
@@ -71,7 +82,7 @@ const TrainingForm = () => {
                 onChange={handleChange}
                 required
                 >
-
+                    <option value="">Activity Type</option>
                     <option value="swim">Swim</option>
                     <option value="bike">Bike</option>
                     <option value="run">Run</option>

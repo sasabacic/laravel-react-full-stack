@@ -14,6 +14,7 @@ class Training extends Model
     }
 
     protected $fillable = [
+        'training_date',
         'activity_type',
         'pace',
         'distance',
