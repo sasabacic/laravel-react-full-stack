@@ -19,9 +19,7 @@ class UserController extends Controller
 
         //Getting the search term from the request
         $search = $request->input('search');
-
-        //Building query
-        $query = User::query();
+        $query = User::with('trainings'); //Eager load training
 
         if($search){
             $query->where(function ($query) use ($search) {
@@ -72,6 +70,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        //Eager load the user trainings
+        $user->load('trainings');
+
         return new UserResource($user);
     }
 
@@ -95,8 +96,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        //Delete the associated trainings first
+        $user->trainings()->delete();
+
+        //Delete the user
         $user->delete();
 
-        return response('', 204);
+        return response()->json(['message' => 'User and trainings deleted successfully.'],204);
     }
 }

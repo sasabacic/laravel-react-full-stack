@@ -23,13 +23,28 @@ Route::middleware('auth:sanctum')->group(function(){
         return $request->user();
     });
 
-    Route::post('/logout', [AuthController::class,'logout']);
-    Route::apiResource('/users', UserController::class);
-    Route::apiResource('trainings', TrainingController::class);
+    Route::post('/logout', [AuthController::class, 'logout']);
 
-    
+    // Common `/trainings` route for both roles
+    Route::get('/trainings', [TrainingController::class, 'index']);
+
+    // Admin only routes
+    Route::middleware('role:admin')->group(function(){
+        // Manage the users
+        Route::apiResource('/users', UserController::class);
+        // Manage all trainings (admin can see all)
+        Route::apiResource('/trainings', TrainingController::class)->only(['destroy']);
+    });
+
+    // Normal user routes (only their own trainings)
+    Route::middleware('role:user')->group(function(){
+        // Create a new training
+        Route::post('/trainings', [TrainingController::class, 'store']);
+        // Update their own training
+        Route::put('/trainings/{training}', [TrainingController::class, 'update']);
+    });
 });
 
-//Whenever the post request is made on signup or login it should called AuthController
+// Public access routes
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);

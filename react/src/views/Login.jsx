@@ -25,7 +25,8 @@ const Login = () => {
         axiosClient
             .post("/login", payload)
             .then(({ data }) => {
-                setUser(data.user);
+                //Save user and token in context
+                setUser(data.user); //Includes role
                 setToken(data.token);
             })
             .catch((error) => {

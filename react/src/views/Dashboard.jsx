@@ -1,9 +1,17 @@
-const Dashboard = () => {
-  return (
-    <div>
-        Dashboard
-    </div>
-  )
-}
+import { useStateContext } from "../contexts/ContextProvider";
 
-export default Dashboard
+const Dashboard = () => {
+    const { user } = useStateContext();
+
+    return (
+        <div>
+            {user?.role === "admin" ? (
+                <h1>Welcome Admin!</h1>
+            ) : (
+                <h1>Access Denied</h1>
+            )}
+        </div>
+    );
+};
+
+export default Dashboard;

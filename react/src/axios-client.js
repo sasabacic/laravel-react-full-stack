@@ -10,7 +10,7 @@ axiosClient.interceptors.request.use((config) => {
     const token = localStorage.getItem('GET_TOKEN')
     //if the token is found in the local storage it is then added to request headers under the authorization
     if(token){
-        config.headers.Authorization = `Bearer ${token}`
+        config.headers.Authorization = `Bearer ${token}`;
     }
 
     return config;

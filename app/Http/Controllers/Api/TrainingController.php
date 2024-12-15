@@ -15,9 +15,15 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        //We are retriving a list of trainings for the authenticated users
+        // If user is an admin, show all trainings
+    if (auth()->user()->role === 'admin') {
+        $trainings = Training::with('user')->latest()->get();
+    } else {
+        // Otherwise, show only their own trainings
         $trainings = auth()->user()->trainings()->latest()->get();
-        return response()->json($trainings, 201);
+    }
+
+    return response()->json($trainings, 200);
     }
 
     /**
@@ -68,11 +74,16 @@ class TrainingController extends Controller
      */
     public function destroy($id)
     {
-        $training = auth()->user()->trainings()->findOrFail($id);
-        $training->delete();
+        $training = Training::findOrFail($id);
+        //Checking if the authenticated use is an admin or the owner of the training
+        if(auth()->user()->role === 'admin' || $training->user_id === auth()->id()){
+            $training->delete();
 
-        return response()->json([
-            'message' => 'Training delete successfully'
-        ], 200);
+            return response()->json([
+                'message' => 'Training deleted successfully'
+            ], 200);
+        }
+
+        return response()->json(['message' => 'You are not authorized to delete this training'],403);
     }
 }
