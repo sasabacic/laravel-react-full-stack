@@ -45,7 +45,7 @@ class TrainingController extends Controller
     public function show($id)
     {
         $training = auth()->user()->trainings()->findOrFail($id);
-        return response()->json($training, 201);
+        return response()->json($training, 201);  
     }
 
     /**
